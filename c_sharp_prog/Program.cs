@@ -15,12 +15,8 @@ int CheckConsoleInput()
     while(result != true & inputNumber > 1)
     {
         Console.WriteLine("Ошибка ввода: введено не целое число больше 0. Попробуйте повторить.");
-        result = double.TryParse(Console.ReadLine(), out number);
-    }  
-
-    return inputNumber;
-
-
+        result = int.TryParse(Console.ReadLine(), out inputNumber);
+    }
     return inputNumber;
 }
 
@@ -30,13 +26,13 @@ int CheckConsoleInput()
 /// <param name="inputArray">
 /// given array
 /// </param>
-void WriteArray(string[,] inputArray)
+void WriteArray(string[] inputArray)
 {
     System.Console.WriteLine();
 
-    for(int k=0; k < (1 + inputArray.GetUpperBound(1)); k++)
+    for(int k=0; k < (1 + inputArray.GetUpperBound(0)); k++)
     {
-        Console.WriteLine(inputArray[i, k]);
+        Console.WriteLine(inputArray[k]);
     }
 }
 
@@ -49,89 +45,24 @@ void WriteArray(string[,] inputArray)
 /// <param name="strLength">
 /// array[i].length < strLength
 /// </param>
-int[,] FillArray(int size)
+string[] FillArray(int size, int strLengthMax)
 {
-    int half = size / 2;
-    int amountElements = size * size;
-    int[,] spiralMatrix = new int[size, size];
-    int row = 0;
-    int column = 0;
-    int count = 0;
-    while(count < amountElements)
+    string[] array = new string[size];
+    for (int i = 0; i < size; i++)
     {
-        if
-        // 1 quarter (upper)
-        (
-            (column < size - row - 1) && (column > row - 2) 
-            && (row < half + 1 ) && (row > -1)
-        )
+        int strLength = new Random().Next(1, strLengthMax);
+        for (int j = 0; j < strLength; j++)
         {
-            spiralMatrix[row, column] = count + 1;
-            System.Console.WriteLine($"count = {count}");
-            System.Console.WriteLine($"spiralMatrix[{row}, {column}] = {spiralMatrix[row, column]}");
-            System.Console.WriteLine("1 quarter");
-            System.Console.WriteLine();
-            column++;
-        }    
-        else if
-        // 2 quarter (right)
-        (
-            (column < size) && (column >= half)  
-            && (row < column) && (row > -1)
-        )
-        {
-            spiralMatrix[row, column] = count + 1;
-            System.Console.WriteLine($"count = {count}");
-            System.Console.WriteLine($"spiralMatrix[{row}, {column}] = {spiralMatrix[row, column]}");
-            System.Console.WriteLine("2 quarter");
-            System.Console.WriteLine();
-            row++;
+            array[i] = array[i] + Convert.ToChar(new Random().Next(1, strLengthMax));
         }
-        else if
-        // 3 quarter (lower)
-        (
-            (column < size) && (column > size - row - 1)  
-            && (row < size) && (row >= half)
-        )
-        {
-            spiralMatrix[row, column] = count + 1;
-            System.Console.WriteLine($"count = {count}");
-            System.Console.WriteLine($"spiralMatrix[{row}, {column}] = {spiralMatrix[row, column]}");
-            System.Console.WriteLine("3 quarter");
-            System.Console.WriteLine();
-            column--;
-        }
-        else if
-        // 4 quarter (left)
-        (
-            (column < half) && (column > - 1)  
-            && (row < size) && (row > column + 1)
-        )
-        {
-            spiralMatrix[row, column] = count + 1;
-            System.Console.WriteLine($"count = {count}");
-            System.Console.WriteLine($"spiralMatrix[{row}, {column}] = {spiralMatrix[row, column]}");            
-            System.Console.WriteLine("4 quarter");
-            System.Console.WriteLine();
-            row--;
-        }        
-        else
-        {
-            spiralMatrix[row, column] = count + 1;
-            System.Console.WriteLine("исключение");
-            System.Console.WriteLine($"count = {count}");
-            System.Console.WriteLine($"spiralMatrix[{row}, {column}] = {spiralMatrix[row, column]}");
-        }
-
-        count++;
     }
-
-    return spiralMatrix;
+    return array;    
 }
 
 
-System.Console.Write("Введите размер двумерного массива с равными измерениями: ");
+System.Console.Write("Введите размер массива: ");
 int sizeArray = CheckConsoleInput();
-
-int[,] array = FillArray(sizeArray);
+System.Console.Write("Введите максимальную длину строки: ");
+int maxSizeSrting = CheckConsoleInput();
+string[] array = FillArray(sizeArray, maxSizeSrting);
 WriteArray(array);
