@@ -59,24 +59,25 @@ string[] FillArray(int size, int strLengthMax)
     return array;    
 }
 
-int countElementsSmaller3(string[] inArray)
-{
-    int k = 0;
-    for (int i = 0; i < 1 + inArray.GetUpperBound(0); i++)
-    {
-        if (inArray[i].Length < 4)
-        {
-            k++;
-        }        
-    }
-    return k;
-}
-
 
 string[] arrayMax3Char(string[] inArray)
 {
-    string[] outArray = new string[countElementsSmaller3(inArray)+8];
     int k = 0;
+    for (int i = 0; i < 1 + inArray.GetUpperBound(0); i++)
+    { 
+        if (inArray[i].Length < 4)
+        {
+            k++;
+        }  
+    }
+
+    string[] outArray = new string[k];
+    if (k==0)
+    {
+        System.Console.WriteLine("В заданном массиве нет строк длиной меньше 4 символов");
+    }
+
+    k = 0;
     for (int i = 0; i < 1 + inArray.GetUpperBound(0); i++)
     {
         if (inArray[i].Length < 4)
@@ -86,9 +87,6 @@ string[] arrayMax3Char(string[] inArray)
         }
     }
 
-    System.Console.WriteLine("tempArray");
-WriteArray(outArray);
-
     return outArray;
 }
 
@@ -96,15 +94,18 @@ System.Console.Write("Введите размер массива: ");
 int sizeArray = CheckConsoleInput();
 System.Console.Write("Введите максимальную длину строки: ");
 int maxSizeSrting = CheckConsoleInput();
-
-string[] array = FillArray(sizeArray, maxSizeSrting);
-System.Console.WriteLine("Vfccbd: ");
-WriteArray(array);
 System.Console.WriteLine();
 
+string[] array = FillArray(sizeArray, maxSizeSrting);
+System.Console.WriteLine("Заданный массив");
+WriteArray(array);
+System.Console.WriteLine();
+System.Console.WriteLine();
 
-string[] finalArray = new string[countElementsSmaller3(array)];
+string[] finalArray = arrayMax3Char(array);
+System.Console.WriteLine();
+System.Console.WriteLine();
 
-finalArray = arrayMax3Char(array);
-System.Console.WriteLine("finalArray");
+System.Console.WriteLine("ИТОГ");
 WriteArray(finalArray);
+System.Console.WriteLine();
