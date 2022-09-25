@@ -59,7 +59,12 @@ string[] FillArray(int size, int strLengthMax)
     return array;    
 }
 
-
+/// <summary>
+/// Create array from inArray with lenght of elements < 4 chars
+/// </summary>
+/// <param name="inArray">
+/// given array
+/// </param>
 string[] arrayMax3Char(string[] inArray)
 {
     int k = 0;
@@ -89,6 +94,7 @@ string[] arrayMax3Char(string[] inArray)
 
     return outArray;
 }
+
 
 System.Console.Write("Введите размер массива: ");
 int sizeArray = CheckConsoleInput();
