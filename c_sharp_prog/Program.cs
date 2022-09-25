@@ -32,7 +32,7 @@ void WriteArray(string[] inputArray)
 
     for(int k=0; k < (1 + inputArray.GetUpperBound(0)); k++)
     {
-        Console.WriteLine(inputArray[k]);
+        Console.WriteLine(k + " " + inputArray[k]);
     }
 }
 
@@ -50,19 +50,61 @@ string[] FillArray(int size, int strLengthMax)
     string[] array = new string[size];
     for (int i = 0; i < size; i++)
     {
-        int strLength = new Random().Next(1, strLengthMax);
+        int strLength = new Random().Next(1, strLengthMax + 1);
         for (int j = 0; j < strLength; j++)
         {
-            array[i] = array[i] + Convert.ToChar(new Random().Next(1, strLengthMax));
+            array[i] = array[i] + Convert.ToChar(new Random().Next(0, 256));
         }
     }
     return array;    
 }
 
+int countElementsSmaller3(string[] inArray)
+{
+    int k = 0;
+    for (int i = 0; i < 1 + inArray.GetUpperBound(0); i++)
+    {
+        if (inArray[i].Length < 4)
+        {
+            k++;
+        }        
+    }
+    return k;
+}
+
+
+string[] arrayMax3Char(string[] inArray)
+{
+    string[] outArray = new string[countElementsSmaller3(inArray)+8];
+    int k = 0;
+    for (int i = 0; i < 1 + inArray.GetUpperBound(0); i++)
+    {
+        if (inArray[i].Length < 4)
+        {
+            outArray[k] = inArray[i];
+            k++;
+        }
+    }
+
+    System.Console.WriteLine("tempArray");
+WriteArray(outArray);
+
+    return outArray;
+}
 
 System.Console.Write("Введите размер массива: ");
 int sizeArray = CheckConsoleInput();
 System.Console.Write("Введите максимальную длину строки: ");
 int maxSizeSrting = CheckConsoleInput();
+
 string[] array = FillArray(sizeArray, maxSizeSrting);
+System.Console.WriteLine("Vfccbd: ");
 WriteArray(array);
+System.Console.WriteLine();
+
+
+string[] finalArray = new string[countElementsSmaller3(array)];
+
+finalArray = arrayMax3Char(array);
+System.Console.WriteLine("finalArray");
+WriteArray(finalArray);
